@@ -1,0 +1,15 @@
+{
+  "posts": [
+    {
+      "id": 2,
+      "firstName": "Shweta",
+      "lastName": "Kadam",
+      "email": "shwetag@gmail.com",
+      "mobile": "986687166"
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

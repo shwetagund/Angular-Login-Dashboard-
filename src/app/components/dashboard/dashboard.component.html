@@ -1,0 +1,80 @@
+<nav class="navbar navbar-light bg-primary">
+	<div class="container-fluid">
+		<h1 style="color: white;">Welcome to the Dashboard</h1>
+		<div class="d-flex">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+				Add New user
+			</button>
+		</div>
+	</div>
+</nav>
+
+<table class="table mt-3">
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Mobile</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- Employee Rows -->
+		<tr *ngFor="let employee of employees">
+			<td>{{ employee.firstName}}</td>
+			<td>{{ employee.lastName }}</td>
+			<td>{{ employee.email }}</td>
+			<td>{{ employee.mobile }}</td>
+			<td>
+				<!-- Edit and Delete Buttons -->
+				<button class="btn btn-info" (click)="editEmployee(employee)">Edit</button>
+				<button class="btn btn-danger mx-3" (click)="deleteEmployee(employee.id)">Delete</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Employee details</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [fromGroup]="formValue">
+					<div class="mb-3">
+						<label for="exampleInputEmail1">First Name</label>
+						<input type="text" class="form-control" fromControlName="firstName" id="exampleInputEmail1" aria-describedby="emailHelp"
+							placeholder="Enter Name">
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputPassword1">Last Name</label>
+						<input type="text" class="form-control" fromControlName="lastName" id="exampleInputPassword1"
+							placeholder="Enter last Name">
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputPassword1">Email Id</label>
+						<input type="email" class="form-control"fromControlName="email" id="exampleInputPassword1"
+							placeholder="Enter last Name">
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputPassword1">Mobile No</label>
+						<input type="text" class="form-control"fromControlName="mobile" id="exampleInputPassword1"
+							placeholder="Enter last Name">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button (click)="postEmplyDetails()" type="button" class="btn btn-primary">Add</button>
+			</div>
+		</div>
+	</div>
+</div>
