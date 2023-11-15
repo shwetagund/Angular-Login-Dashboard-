@@ -22,10 +22,10 @@
 	<tbody>
 		<!-- Employee Rows -->
 		<tr *ngFor="let employee of employees">
-			<td>{{ employee.firstName}}</td>
-			<td>{{ employee.lastName }}</td>
-			<td>{{ employee.email }}</td>
-			<td>{{ employee.mobile }}</td>
+			<td>{{ employee?.firstName}}</td>
+			<td>{{ employee?.lastName }}</td>
+			<td>{{ employee?.email }}</td>
+			<td>{{ employee?.mobile }}</td>
 			<td>
 				<!-- Edit and Delete Buttons -->
 				<button class="btn btn-info" (click)="editEmployee(employee)">Edit</button>
@@ -48,33 +48,30 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form [fromGroup]="formValue">
-					<div class="mb-3">
-						<label for="exampleInputEmail1">First Name</label>
-						<input type="text" class="form-control" fromControlName="firstName" id="exampleInputEmail1" aria-describedby="emailHelp"
-							placeholder="Enter Name">
+				<form [formGroup]="formValue" (ngSubmit)="postEmplyDetails()">
+					<div formGroupName="userData">
+						<div class="form-group">
+							<label for="username">First Name</label>
+							<input type="text" class="form-control" id="username" formControlName="firstName" />
+						</div>
+						<div class="form-group">
+							<label for="username">Last Name</label>
+							<input type="text" class="form-control" id="username" formControlName="lastName" />
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" class="form-control" id="email" formControlName="email" />
+						</div>
+						<div class="form-group">
+							<label for="username">Mobile No</label>
+							<input type="text" class="form-control" id="username" formControlName="mobile" />
+						</div>
 					</div>
-					<div class="mb-3">
-						<label for="exampleInputPassword1">Last Name</label>
-						<input type="text" class="form-control" fromControlName="lastName" id="exampleInputPassword1"
-							placeholder="Enter last Name">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputPassword1">Email Id</label>
-						<input type="email" class="form-control"fromControlName="email" id="exampleInputPassword1"
-							placeholder="Enter last Name">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputPassword1">Mobile No</label>
-						<input type="text" class="form-control"fromControlName="mobile" id="exampleInputPassword1"
-							placeholder="Enter last Name">
-					</div>
+					<button id="cancle" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button class="btn btn-primary" type="submit">Submit</button>
 				</form>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button (click)="postEmplyDetails()" type="button" class="btn btn-primary">Add</button>
-			</div>
+
 		</div>
 	</div>
 </div>
