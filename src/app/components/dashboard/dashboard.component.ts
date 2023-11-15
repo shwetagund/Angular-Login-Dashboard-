@@ -1,7 +1,7 @@
 // dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DashboardModel } from './dashboard.model';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from '../../shared/api.service';
@@ -10,23 +10,31 @@ import { NgModule } from '@angular/core';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule,HttpClientModule,ReactiveFormsModule],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   formValue!: FormGroup;
-  employees = [];
+  employees!: any;
   employeModelObj: DashboardModel = new DashboardModel();
 
-  constructor(private formBuilder: FormBuilder, public apiService: ApiService) {}
+  constructor(private formBuilder: FormBuilder, public apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.formValue = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-      mobile: [''],
+    // this.formValue = this.formBuilder.group({
+    //   firstName: [''],
+    //   lastName: [''],
+    //   email: [''],
+    //   mobile: [''],
+    // });
+     this.formValue = new FormGroup({
+      userData: new FormGroup({
+        firstName: new FormControl(null, []),
+        lastName: new FormControl(null, []),
+        email: new FormControl(null, []),
+        mobile: new FormControl(null, []),
+      }),
     });
 
     this.getEmployeeList();
@@ -44,16 +52,17 @@ export class DashboardComponent implements OnInit {
   }
 
   postEmplyDetails(): void {
-    this.employeModelObj.firstName = this.formValue.value.firstName;
-    this.employeModelObj.lastName = this.formValue.value.lastName;
-    this.employeModelObj.email = this.formValue.value.email;
-    this.employeModelObj.mobile = this.formValue.value.mobile;
-
+    this.employeModelObj.firstName = this.formValue.value.userData.firstName;
+    this.employeModelObj.lastName = this.formValue.value.userData.lastName;
+    this.employeModelObj.email = this.formValue.value.userData.email;
+    this.employeModelObj.mobile = this.formValue.value.userData.mobile;
     this.apiService.postEmploye(this.employeModelObj).subscribe(
       (res: any) => {
-        console.log(res);
         alert('Employee added successfully');
-        this.getEmployeeList(); // Refresh the employee list after adding a new employee
+        // let ref = document.getElementById("cancle")
+        // ref?.click();
+        // this.formValue.reset();
+        this.getEmployeeList();
       },
       (err: any) => {
         alert('Something went wrong');
@@ -83,7 +92,7 @@ export class DashboardComponent implements OnInit {
         (res: any) => {
           console.log(res);
           alert('Employee deleted successfully');
-          this.getEmployeeList(); // Refresh the employee list after deleting an employee
+          this.getEmployeeList();
         },
         (err: any) => {
           alert('Something went wrong');
