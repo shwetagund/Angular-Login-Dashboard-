@@ -10,28 +10,29 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let authService: jasmine.SpyObj<AuthService>;
   let router: jasmine.SpyObj<Router>;
-
-  beforeEach(() => {
-    const authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-
-    TestBed.configureTestingModule({
-      declarations: [LoginComponent],
-      imports: [ReactiveFormsModule],
-      providers: [
-        { provide: AuthService, useValue: authServiceSpy },
-        { provide: Router, useValue: routerSpy },
-      ],
-    });
-
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
-    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+   beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LoginComponent],
+    }).compileComponents();
   });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  
+ it('should create the app', () => {
+    const fixture = TestBed.createComponent(LoginComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+   it('should render a login button', () => {
+    fixture.detectChanges();
+    const loginButton: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(loginButton).toBeTruthy();
+    expect(loginButton.textContent).toContain('Login');
+  });
+ it('should have email and password input fields in the form', () => {
+    fixture.detectChanges();
+    const emailInput: HTMLInputElement = fixture.nativeElement.querySelector('input[name="email"]');
+    const passwordInput: HTMLInputElement = fixture.nativeElement.querySelector('input[name="password"]');
+    expect(emailInput).toBeTruthy();
+    expect(passwordInput).toBeTruthy();
   });
 
    it('should initialize loginForm', () => {
