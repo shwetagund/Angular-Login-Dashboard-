@@ -61,10 +61,19 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  editEmployee(employee: DashboardModel): void {
-    // Implement logic to navigate to edit page or open edit modal
-    // You can pass the employee data to the edit page or modal
-  }
+  // editEmployee(employee: DashboardModel): void {
+  //   this.selectedEmployee = employee;
+  //   this.editMode = true;
+  //   this.formValue.patchValue({
+  //     firstName: employee.firstName,
+  //     lastName: employee.lastName,
+  //     email: employee.email,
+  //     mobile: employee.mobile
+  //   });
+  //    if (this.modal) {
+  //     this.modalService.open(this.modal, { centered: true });
+  //   }
+  // }
 
   deleteEmployee(employeeId: number): void {
     const confirmDelete = confirm('Are you sure you want to delete this employee?');
